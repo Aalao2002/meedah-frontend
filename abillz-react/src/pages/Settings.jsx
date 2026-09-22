@@ -133,7 +133,7 @@ function Settings() {
 
                         <label  className="text-xs font-poppins font-semibold" htmlFor="phone">Phone</label>
                         <input type="text" value={formData.phone} name="phone" onChange={handleChange} 
-                        className="text-sm border text-[#000]/50 border-gray-200 rounded-md p-2" id="phone" 
+                        className="text-sm border  border-gray-200 rounded-md p-2" id="phone" 
                         placeholder="e.g 070...." required/>
 
                         <div className="mt-2">
