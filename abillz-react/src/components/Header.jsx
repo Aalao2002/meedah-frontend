@@ -5,9 +5,11 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import { CartContext } from '../contexts/CartProvider';
+import { StateContext } from '../contexts/ContextProvider';
 
 function Header() {
     const navigate = useNavigate();
+    const { token } = useContext(StateContext);
     const menuRef = useRef(null);
     const { cart } = useContext(CartContext);
     const [open, setOpen] = useState(false);
@@ -31,21 +33,29 @@ function Header() {
         <header className='sticky bg-gray-100/10 top-0 backdrop-blur-md left-0 right-0 flex z-50 border-b border-gray-100  items-center p-4 justify-between shadow-xs  w-full'>
             {/**** logo *****/}
             <div>
-                <h2 className='text-xl font-bold text-gray-800/60'>Meedah <span className='text-pink-300'>Cakes</span></h2>
+                <h2 className='text-xl font-bold text-gray-800/60'>Meedah <span className='text-pink-300'>Bakes</span></h2>
             </div>
 
             {/****navlinks mobile*****/}
             {open && <ul className='absolute md:hidden z-50  p-2 top-15 left-0 right-0 
             flex-col bg-gray-100 flex gap-1'>
+                {token && (
+                <li><NavLink to="/dashboard" className={({ isActive }) =>
+                `p-2 rounded-md transition-all duration-500 hover:bg-gray-200 font-semibold text-sm flex ${
+                isActive ? 'bg-gray-200' : ''}`}>Dashboard</NavLink></li>)}
+
                 <li><NavLink to="/shop" className={({ isActive }) =>
                 `p-2 rounded-md transition-all duration-500 hover:bg-gray-200 font-semibold text-sm flex ${
                 isActive ? 'bg-gray-200' : ''}`}>Shop</NavLink></li>
+
                 <li><NavLink className={({ isActive }) =>
                 `p-2 rounded-md transition-all duration-500 hover:bg-gray-200 font-semibold text-sm flex ${
                 isActive ? 'bg-gray-200' : ''}`}  to={"/blog"}>Blog</NavLink></li>
+
                 <li><NavLink className={({ isActive }) =>
                 `p-2 rounded-md transition-all duration-500 hover:bg-gray-200 font-semibold text-sm flex ${
                 isActive ? 'bg-gray-200' : ''}`} to={"/about"}>About</NavLink></li>
+
                 <li><NavLink className={({ isActive }) =>
                 `p-2 rounded-md transition-all duration-500 hover:bg-gray-200 font-semibold text-sm flex ${
                 isActive ? 'bg-gray-200' : ''}`} to={"/contact"}>Contact Us</NavLink></li>
@@ -53,6 +63,11 @@ function Header() {
 
             {/**** navlinks desktop ***/}
             <ul className='hidden md:flex gap-2 transition-all duration-500'>
+                {token && 
+                    <li className='font-semibold text-sm'>
+                        <NavLink to={"/dashboard"}>Dashboard</NavLink>
+                    </li>
+                }
                 <li className='font-semibold text-sm'><NavLink to={"/shop"}>Shop</NavLink></li>
                 <li className='font-semibold text-sm'><NavLink to={"/blog"}>Blog</NavLink></li>
                 <li className='font-semibold text-sm'><NavLink to={"/about"}>About</NavLink></li>
