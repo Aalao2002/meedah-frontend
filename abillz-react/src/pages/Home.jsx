@@ -42,7 +42,7 @@ const steps = [
 ];
 
 function Home() {
-    const { token } = useContext(StateContext);
+    const { token, user } = useContext(StateContext);
     const navigate = useNavigate();
     const [cakes, setCakes] = useState([]);
     const [activeSlide, setActiveSlide] = useState(0);
@@ -283,14 +283,14 @@ function Home() {
                     className="text-white text-3xl mb-3"
                     style={{ fontFamily: "'Fraunces', serif", fontWeight: 500 }}
                 >
-                    Ready to order?
+                    {token ? `Welcome back, ${user.firstName}` : 'Ready to order?' }
                 </h2>
-                <p className="text-white/50 text-sm mb-6">Create an account to track your order from oven to doorstep</p>
+                <p className="text-white/50 text-sm mb-6">{token ? 'Your cravings are one click away' : 'Create an account to track your order from oven to doorstep'}</p>
                 <button
-                    onClick={() => navigate('/auth')}
+                    onClick={() => navigate(token ? '/shop' : '/auth')}
                     className="text-sm font-semibold text-[#000] bg-white rounded-md px-6 py-3"
                 >
-                    Create an account
+                    {token ? 'Order Now' : 'Create an account'}
                 </button>
             </div>
         </div>
